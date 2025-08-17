@@ -13,7 +13,8 @@
 body {
   font-family: 'Arial', sans-serif;
 /*   background: #f0f4f8; */
-  background:  #1f2937;
+  background: burlywood;
+/*   background:  #1f2937; */
   line-height: 1.6;
   max-width: 1000px;
   margin: auto;
@@ -95,4 +96,5 @@ footer {
   }
 
 }
+
 
