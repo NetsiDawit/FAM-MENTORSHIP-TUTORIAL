@@ -167,7 +167,7 @@ async function renderTutorials(chapterFiles) {
   const tutorials = [];
   for (const file of chapterFiles) {
     const data = await loadTutorial(file);
-    if (data && data.subject.toLowerCase() === subject.toLowerCase()) {
+    if (data.subject.toLowerCase() === subject.toLowerCase()) {
       tutorials.push(data);
     }
   }
@@ -197,6 +197,7 @@ renderTutorials([
   "psychology_chapter1.json",
   // Add more later: "psychology_chapter2.json", ...
 ]);
+
 
 
 
