@@ -21,7 +21,7 @@ renderTutorials([data]);
 // ----------------------------
 async function loadTutorial(chapterFile) {
   try {
-    const response = await fetch(courses/${chapterFile});
+    const response = await fetch('courses/${chapterFile}');
     if (!response.ok) {
       throw new Error(File not found: ${chapterFile});
     }
@@ -74,6 +74,7 @@ renderTutorials([
   "psychology_chapter1.json",
   // Add more later: "psychology_chapter2.json", ...
 ]);
+
 
 
 
