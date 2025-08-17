@@ -59,10 +59,10 @@ async function renderTutorials(chapterFiles) {
    '<div class="tutorial-card">
       <div class="tutorial-title">${t.title}</div>
       <div class="tutorial-desc">${t.description}</div>
-      ${t.note ? <div class="tutorial-note"><strong>Note:</strong> ${t.note}</div> : ""}
-      ${t.fullNotes ? <div class="tutorial-full-notes">${t.fullNotes.replace(/\n/g, "<br>")}</div> : ""}
-    </div>'
- ).join('');
+      ${t.note ? '<div class="tutorial-note"><strong>Note:</strong> ${t.note}</div> ': ""}
+      ${t.fullNotes ? '<div class="tutorial-full-notes">${t.fullNotes.replace(/\n/g, "<br>")}</div>' : ""}
+    </div>
+').join('');
 
   container.innerHTML = html;
 }
@@ -74,6 +74,7 @@ renderTutorials([
   "psychology_chapter1.json",
   // Add more later: "psychology_chapter2.json", ...
 ]);
+
 
 
 
