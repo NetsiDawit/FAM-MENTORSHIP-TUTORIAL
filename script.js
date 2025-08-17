@@ -1,82 +1,84 @@
 // ----------------------------
 // 1. All Tutorial Data
 // ----------------------------
-const TUTORIALS = [
-  // --- Chapter 1 ---
-  {
-    subject: "Psychology",
-    title: "Chapter 1: Experimental Research",
-    description: "Introduction to Psychology and Key Concepts",
-    note: "Step one - Defining the Problem, Step two - Formulating the Hypothesis, Step three - Testing the Hypothesis, Step four - Drawing Conclusions, Step five - Reporting Results",
-    steps: [
-      "chapter one - esence of psychology",
-      "chapter two - sensation and perception ",
-      "chapter three - learning and theories of learning",
-      "chapter four - memory and forgetting",
-      "chapter five - motivation and emotions",
-       "chapter six - personality",
-       "chapter seven - psychological disorders and treatement techniques",
-    ],
-    fullNotes: 
-እነዚህን አምስት ሳይንሳዊ ጥናት ሂደቶች ፃፍ ላይ ሊመጡ ይችላሉ ☺️
+// const TUTORIALS = [
+//   // --- Chapter 1 ---
+//   {
+//     subject: "Psychology",
+//     title: "Chapter 1: Experimental Research",
+//     description: "Introduction to Psychology and Key Concepts",
+//     note: "Step one - Defining the Problem, Step two - Formulating the Hypothesis, Step three - Testing the Hypothesis, Step four - Drawing Conclusions, Step five - Reporting Results",
+//     steps: [
+//       "chapter one - esence of psychology",
+//       "chapter two - sensation and perception ",
+//       "chapter three - learning and theories of learning",
+//       "chapter four - memory and forgetting",
+//       "chapter five - motivation and emotions",
+//        "chapter six - personality",
+//        "chapter seven - psychological disorders and treatement techniques",
+//     ],
+//     fullNotes: 
+// እነዚህን አምስት ሳይንሳዊ ጥናት ሂደቶች ፃፍ ላይ ሊመጡ ይችላሉ ☺️
 
-Limitations of Experimental Research: 
-- Complex real-world issues may not be easily studied in the laboratory
-- Experimental research has its own limitations
-- Artificial situations may produce results different from real-life environments
-- Experimental group, control group, independent & dependent variables must be considered carefully
+// Limitations of Experimental Research: 
+// - Complex real-world issues may not be easily studied in the laboratory
+// - Experimental research has its own limitations
+// - Artificial situations may produce results different from real-life environments
+// - Experimental group, control group, independent & dependent variables must be considered carefully
 
-Chapter 2 will continue with experimental groups and control groups.
+// Chapter 2 will continue with experimental groups and control groups.
 
-  },
+//   },
 
-  // --- Chapter 2 ---
-  {
-    subject: "Psychology",
-    title: "Chapter 2: Research Methods",
-    description: "Understanding Research Methods in Psychology",
-    note: "Research methods in psychology: Major types of research methods",
-    steps: [
-      "Step 1 - Descriptive Research",
-      "Step 2 - Naturalistic Observation",
-      "Step 3 - Case Study"
-    ],
-    fullNotes: 
-እነዚህ ከClinical ያነሱ ችግሮችን ልክ እንደ ማማከር አይነት psychology ናቸው
-- Descriptive Research: The researcher records observations systematically (case studies, surveys, naturalistic observation)
-- Naturalistic Observation: Observing subjects in their natural environment to get real (not artificial) behavior
-- Case Study: Studying an individual in great detail; provides a lot of data on a single case
+//   // --- Chapter 2 ---
+//   {
+//     subject: "Psychology",
+//     title: "Chapter 2: Research Methods",
+//     description: "Understanding Research Methods in Psychology",
+//     note: "Research methods in psychology: Major types of research methods",
+//     steps: [
+//       "Step 1 - Descriptive Research",
+//       "Step 2 - Naturalistic Observation",
+//       "Step 3 - Case Study"
+//     ],
+//     fullNotes: 
+// እነዚህ ከClinical ያነሱ ችግሮችን ልክ እንደ ማማከር አይነት psychology ናቸው
+// - Descriptive Research: The researcher records observations systematically (case studies, surveys, naturalistic observation)
+// - Naturalistic Observation: Observing subjects in their natural environment to get real (not artificial) behavior
+// - Case Study: Studying an individual in great detail; provides a lot of data on a single case
 
-Advantages: Collects rich information for analysis.
-Limitations: May be biased depending on observer.
+// Advantages: Collects rich information for analysis.
+// Limitations: May be biased depending on observer.
 
-  },
+//   },
 
-  // --- Chapter 3 ---
-  {
-    subject: "Psychology",
-    title: "Chapter 3: Advanced Experimental Research",
-    description: "Further insights into experimental design",
-    note: "Step one - Defining the Problem, Step two - Formulating the Hypothesis, Step three - Testing the Hypothesis, Step four - Drawing Conclusions, Step five - Reporting Results",
-    steps: [
-      "Step one - Defining the Problem",
-      "Step two - Formulating the Hypothesis",
-      "Step three - Testing the Hypothesis",
-      "Step four - Drawing Conclusions",
-      "Step five - Reporting Results"
-    ],
-    fullNotes: 
-እነዚህን አምስት ሳይንሳዊ ጥናት ሂደቶች ፃፍ ላይ ሊመጡ ይችላሉ ☺️
+//   // --- Chapter 3 ---
+//   {
+//     subject: "Psychology",
+//     title: "Chapter 3: Advanced Experimental Research",
+//     description: "Further insights into experimental design",
+//     note: "Step one - Defining the Problem, Step two - Formulating the Hypothesis, Step three - Testing the Hypothesis, Step four - Drawing Conclusions, Step five - Reporting Results",
+//     steps: [
+//       "Step one - Defining the Problem",
+//       "Step two - Formulating the Hypothesis",
+//       "Step three - Testing the Hypothesis",
+//       "Step four - Drawing Conclusions",
+//       "Step five - Reporting Results"
+//     ],
+//     fullNotes: 
+// እነዚህን አምስት ሳይንሳዊ ጥናት ሂደቶች ፃፍ ላይ ሊመጡ ይችላሉ ☺️
 
-Limitations of Experimental Research: 
-- Real-world issues may not be fully studied in the lab
-- Experiments may produce artificial results
-- Always check experimental design including independent & dependent variables
+// Limitations of Experimental Research: 
+// - Real-world issues may not be fully studied in the lab
+// - Experiments may produce artificial results
+// - Always check experimental design including independent & dependent variables
 
-Chapter 4 will start next.
+// Chapter 4 will start next.
 
-  }
-];
+//   }
+// ];
+
+noteElement.innerHTML = data.fullNotes.replace(/\n/g, "<br>");
 
 // ----------------------------
 // 2. Utilities
@@ -126,3 +128,4 @@ let html = <h2 style="text-align:center; margin-bottom:20px;">Tutorials for ${su
 }
 
 renderTutorials();
+
