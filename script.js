@@ -197,9 +197,10 @@ async function renderTutorials(chapterFiles) {
 // Example: currently only chapter 1
 // ----------------------------
 renderTutorials([
-  'psychology_chapter1.json'
+  'courses/psychology_chapter1.json'
   // Add more chapters later: 'psychology_chapter2.json', etc.
 ]);
+
 
 
 
