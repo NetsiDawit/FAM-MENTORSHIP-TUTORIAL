@@ -137,15 +137,15 @@
 // ----------------------------
 const container = document.getElementById('tutorials');
 const urlParams = new URLSearchParams(window.location.search);
-const subject = urlParams.get('psychology'); // e.g., ?subject=Psychology
+const subject = urlParams.get('subject'); // e.g., ?subject=Psychology
 
 // ----------------------------
 // 2. Fetch a tutorial JSON file
 // ----------------------------
 async function loadTutorial(chapterFile) {
   try {
-    const response = await fetch('courses/${chapterFile}');
-       // const response = await fetch('courses/psychology_chapter1.json');
+    // const response = await fetch('courses/${chapterFile}');
+       const response = await fetch('courses/psychology_chapter1.json');
     if (!response.ok) throw new Error('File not found: ' + chapterFile);
     return await response.json();
   } catch (error) {
@@ -200,6 +200,7 @@ async function renderTutorials(chapterFiles) {
 renderTutorials([
   'courses/psychology_chapter1.json'
 ]);
+
 
 
 
