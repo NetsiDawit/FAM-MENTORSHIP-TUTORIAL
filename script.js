@@ -18,7 +18,7 @@
 //        "chapter seven - psychological disorders and treatement techniques",
 //     ],
 //     fullNotes: 
-// እነዚህን አምስት ሳይንሳዊ ጥናት ሂደቶች ፃፍ ላይ ሊመጡ ይችላሉ ☺️
+// እነዚህን አምስት ሳይንሳዊ ጥናት ሂደቶች ፃፍ ላይ ሊመጡ ይችላሉ ☺
 
 // Limitations of Experimental Research: 
 // - Complex real-world issues may not be easily studied in the laboratory
@@ -78,54 +78,146 @@
 //   }
 // ];
 
-noteElement.innerHTML = data.fullNotes.replace(/\n/g, "<br>");
+// noteElement.innerHTML = data.fullNotes.replace(/\n/g, "<br>");
+
+// // ----------------------------
+// // 2. Utilities
+// // ----------------------------
+// function formatSteps(steps) {
+//   return '<ol class="tutorial-steps">' + steps.map(s => <li>${s}</li>).join('') + '</ol>';
+// }
+
+// // ----------------------------
+// // 3. Render Tutorials
+// // ----------------------------
+// function renderTutorials() {
+//   const container = document.getElementById('tutorials');
+//   const urlParams = new URLSearchParams(window.location.search);
+//   const subject = urlParams.get('subject');
+
+//   if (!subject) {
+//     container.innerHTML = '<p class="no-tutorials">No subject selected. Please open via your bot.</p>';
+//     return;
+//   }
+
+//   const visibleTutorials = TUTORIALS.filter(
+//     t => t.subject.toLowerCase() === subject.toLowerCase()
+//   );
+
+//   if (visibleTutorials.length === 0) {
+//     container.innerHTML = <p class="no-tutorials">No tutorials available for ${subject}.</p>;
+//     return;
+//   }
+
+// let html = <h2 style="text-align:center; margin-bottom:20px;">Tutorials for ${subject}</h2>;
+//   html += visibleTutorials
+//     .map(t => {
+//       return 
+//       <div class="tutorial-card">
+//         <div class="tutorial-title">${t.title}</div>
+//         <div class="tutorial-desc">${t.description}</div>
+//         ${t.note ? <div class="tutorial-note"><strong>Note:</strong> ${t.note}</div> : ''}
+//         ${formatSteps(t.steps)}
+//         ${t.fullNotes ? <div class="tutorial-full-notes">${t.fullNotes}</div> : ''}
+//       </div>
+//       ;
+//     })
+//     .join('');
+
+//   container.innerHTML = html;
+// }
+
+// renderTutorials();
+
+
+
+
 
 // ----------------------------
-// 2. Utilities
+// 1. Get container & subject
 // ----------------------------
-function formatSteps(steps) {
-  return '<ol class="tutorial-steps">' + steps.map(s => <li>${s}</li>).join('') + '</ol>';
+const container = document.getElementById('tutorials');
+const urlParams = new URLSearchParams(window.location.search);
+const subject = urlParams.get('subject');
+
+// ----------------------------
+// 2. Fetch a tutorial JSON file
+// ----------------------------
+async function loadTutorial(chapterFile) {
+  try {
+    const response = await fetch(data/${chapterFile});
+    if (!response.ok) throw new Error('File not found: ' + chapterFile);
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
 
 // ----------------------------
-// 3. Render Tutorials
+// 3. Render tutorials
 // ----------------------------
-function renderTutorials() {
-  const container = document.getElementById('tutorials');
-  const urlParams = new URLSearchParams(window.location.search);
-  const subject = urlParams.get('subject');
-
+async function renderTutorials(chapterFiles) {
   if (!subject) {
-    container.innerHTML = '<p class="no-tutorials">No subject selected. Please open via your bot.</p>';
+    container.innerHTML = <p class="no-tutorials">No subject selected. Please open via your bot.</p>;
     return;
   }
 
-  const visibleTutorials = TUTORIALS.filter(
-    t => t.subject.toLowerCase() === subject.toLowerCase()
-  );
+  // Load all chapters sequentially
+  const tutorials = [];
+  for (const file of chapterFiles) {
+    const data = await loadTutorial(file);
+    if (data && data.subject.toLowerCase() === subject.toLowerCase()) {
+      tutorials.push(data);
+    }
+  }
 
-  if (visibleTutorials.length === 0) {
-    container.innerHTML = <p class="no-tutorials">No tutorials available for ${subject}.</p>;
+  if (tutorials.length === 0) {
+    container.innerHTML = <p class="no-tutorials">No tutorials available for ${subject}</p>;
     return;
   }
 
-let html = <h2 style="text-align:center; margin-bottom:20px;">Tutorials for ${subject}</h2>;
-  html += visibleTutorials
-    .map(t => {
-      return 
-      <div class="tutorial-card">
-        <div class="tutorial-title">${t.title}</div>
-        <div class="tutorial-desc">${t.description}</div>
-        ${t.note ? <div class="tutorial-note"><strong>Note:</strong> ${t.note}</div> : ''}
-        ${formatSteps(t.steps)}
-        ${t.fullNotes ? <div class="tutorial-full-notes">${t.fullNotes}</div> : ''}
-      </div>
-      ;
-    })
-    .join('');
+  // Build HTML
+  let html = <h2 style="text-align:center; margin-bottom:20px;">Tutorials for ${subject}</h2>;
+  html += tutorials.map(t => 
+    <div class="tutorial-card">
+      <div class="tutorial-title">${t.title}</div>
+      <div class="tutorial-desc">${t.description}</div>
+      ${t.note ? <div class="tutorial-note"><strong>Note:</strong> ${t.note}</div> : ''}
+      ${t.fullNotes ? <div class="tutorial-full-notes">${t.fullNotes.replace(/\n/g, "<br>")}</div> : ''}
+    </div>
+  ).join('');
 
   container.innerHTML = html;
 }
 
-renderTutorials();
+// ----------------------------
+// 4. Call the function
+// Only include the chapters you want to show
+// Example: currently only chapter 1
+// ----------------------------
+renderTutorials([
+  'psychology_chapter1.json'
+  // Add more chapters later: 'psychology_chapter2.json', etc.
+]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
