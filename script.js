@@ -37,7 +37,7 @@ async function loadTutorial(chapterFile) {
 // ----------------------------
 async function renderTutorials(chapterFiles) {
   if (!subject) {
-    container.innerHTML = <p class="no-tutorials">No subject selected. Please open via your bot.</p>;
+    container.innerHTML =' <p class="no-tutorials">No subject selected. Please open via your bot.</p>';
     return;
   }
 
@@ -50,19 +50,19 @@ async function renderTutorials(chapterFiles) {
   }
 
   if (tutorials.length === 0) {
-    container.innerHTML = <p class="no-tutorials">No tutorials available for ${subject}.</p>;
+    container.innerHTML = '<p class="no-tutorials">No tutorials available for ${subject}.</p>';
     return;
   }
 
-  let html = <h2 style="text-align:center; margin-bottom:20px;">Tutorials for ${subject}</h2>;
+  let html =' <h2 style="text-align:center; margin-bottom:20px;">Tutorials for ${subject}</h2>';
   html += tutorials.map(t => 
-    <div class="tutorial-card">
+   '<div class="tutorial-card">
       <div class="tutorial-title">${t.title}</div>
       <div class="tutorial-desc">${t.description}</div>
       ${t.note ? <div class="tutorial-note"><strong>Note:</strong> ${t.note}</div> : ""}
       ${t.fullNotes ? <div class="tutorial-full-notes">${t.fullNotes.replace(/\n/g, "<br>")}</div> : ""}
-    </div>
-  ).join('');
+    </div>'
+ ).join('');
 
   container.innerHTML = html;
 }
@@ -74,6 +74,7 @@ renderTutorials([
   "psychology_chapter1.json",
   // Add more later: "psychology_chapter2.json", ...
 ]);
+
 
 
 
