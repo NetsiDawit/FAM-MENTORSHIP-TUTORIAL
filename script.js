@@ -132,20 +132,20 @@
 
 
 
-
 // ----------------------------
 // 1. Get container & subject
 // ----------------------------
 const container = document.getElementById('tutorials');
 const urlParams = new URLSearchParams(window.location.search);
-const subject = urlParams.get('subject');
+const subject = urlParams.get('subject'); // e.g., ?subject=Psychology
 
 // ----------------------------
 // 2. Fetch a tutorial JSON file
 // ----------------------------
 async function loadTutorial(chapterFile) {
   try {
-    const response = await fetch(data/${chapterFile});
+    const response = await fetch(`courses/${chapterFile}`);
+       // const response = await fetch('courses/psychology_chapter1.json');
     if (!response.ok) throw new Error('File not found: ' + chapterFile);
     return await response.json();
   } catch (error) {
@@ -179,12 +179,12 @@ async function renderTutorials(chapterFiles) {
 
   // Build HTML
   let html = <h2 style="text-align:center; margin-bottom:20px;">Tutorials for ${subject}</h2>;
-  html += tutorials.map(t => 
+  html += tutorials.map(t =>
     <div class="tutorial-card">
       <div class="tutorial-title">${t.title}</div>
       <div class="tutorial-desc">${t.description}</div>
-      ${t.note ? <div class="tutorial-note"><strong>Note:</strong> ${t.note}</div> : ''}
-      ${t.fullNotes ? <div class="tutorial-full-notes">${t.fullNotes.replace(/\n/g, "<br>")}</div> : ''}
+      ${t.note ? <div class="tutorial-note"><strong>Note:</strong><br>${t.note.replace(/\n/g, '<br>')}</div> : ''}
+      ${t.fullNotes ? <div class="tutorial-full-notes">${t.fullNotes.replace(/\n/g, '<br>')}</div> : ''}
     </div>
   ).join('');
 
@@ -195,10 +195,10 @@ async function renderTutorials(chapterFiles) {
 // 4. Call the function
 // Only include the chapters you want to show
 // Example: currently only chapter 1
+// Later you can add more: 'psychology_chapter2.json', etc.
 // ----------------------------
 renderTutorials([
   'courses/psychology_chapter1.json'
-  // Add more chapters later: 'psychology_chapter2.json', etc.
 ]);
 
 
