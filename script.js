@@ -144,7 +144,7 @@ const subject = urlParams.get('subject'); // e.g., ?subject=Psychology
 // ----------------------------
 async function loadTutorial(chapterFile) {
   try {
-    const response = await fetch(`courses/${chapterFile}`);
+    const response = await fetch(courses/${chapterFile});
        // const response = await fetch('courses/psychology_chapter1.json');
     if (!response.ok) throw new Error('File not found: ' + chapterFile);
     return await response.json();
@@ -200,6 +200,7 @@ async function renderTutorials(chapterFiles) {
 renderTutorials([
   'courses/psychology_chapter1.json'
 ]);
+
 
 
 
