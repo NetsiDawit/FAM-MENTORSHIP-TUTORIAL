@@ -7,7 +7,7 @@ const container = document.getElementById('tutorials');
 const urlParams = new URLSearchParams(window.location.search);
 const subject = urlParams.get('subject'); // Example: ?subject=Psychology
 
-
+console.log("Abebe beso bela");
 
 const data = {
   subject: "Psychology",
@@ -74,6 +74,7 @@ renderTutorials([
   "psychology_chapter1.json",
   // Add more later: "psychology_chapter2.json", ...
 ]);
+
 
 
 
