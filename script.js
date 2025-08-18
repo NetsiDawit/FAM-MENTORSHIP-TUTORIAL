@@ -54,18 +54,17 @@ async function renderTutorials(chapterFiles) {
     return;
   }
 
-  let html =' <h2 style="text-align:center; margin-bottom:20px;">Tutorials for ${subject}</h2>';
-  html += tutorials.map(t => 
-   '<div class="tutorial-card">
-      <div class="tutorial-title">${t.title}</div>
-      <div class="tutorial-desc">${t.description}</div>
-      ${t.note ? '<div class="tutorial-note"><strong>Note:</strong> ${t.note}</div> ': ""}
-      ${t.fullNotes ? '<div class="tutorial-full-notes">${t.fullNotes.replace(/\n/g, "<br>")}</div>' : ""}
-    </div>
-').join('');
+ let html = `<h2 style="text-align:center; margin-bottom:20px;">Tutorials for ${subject}</h2>`;
+html += tutorials.map(t => `
+  <div class="tutorial-card">
+    <div class="tutorial-title">${t.title}</div>
+    <div class="tutorial-desc">${t.description}</div>
+    ${t.note ? `<div class="tutorial-note"><strong>Note:</strong> ${t.note}</div> `: ""}
+    ${t.fullNotes ?` <div class="tutorial-full-notes">${t.fullNotes.replace(/\n/g, "<br>")}</div>` : ""}
+  </div>
+`).join('');
 
-  container.innerHTML = html;
-}
+container.innerHTML = html;
 
 // ----------------------------
 // 4. Call function with files
@@ -74,6 +73,7 @@ renderTutorials([
   "psychology_chapter1.json",
   // Add more later: "psychology_chapter2.json", ...
 ]);
+
 
 
 
