@@ -9,21 +9,15 @@ const subject = urlParams.get('subject'); // Example: ?subject=Psychology
 
 console.log("Abebe beso bela");
 
-const data = {
-  subject: "Psychology",
-  title: "Chapter 1",
-  description: "Intro to Psychology",
-  fullNotes: "Step one - Defining the Problem\nStep two - Formulating the Hypothesis"
-};
-renderTutorials([data]);
+
 // ----------------------------
 // 2. Fetch JSON safely
 // ----------------------------
 async function loadTutorial(chapterFile) {
   try {
-    const response = await fetch('courses/${chapterFile}');
+    const response = await fetch(`courses/${chapterFile}`);
     if (!response.ok) {
-      throw new Error('File not found: ${chapterFile}');
+      throw new Error(`File not found: ${chapterFile}`);
     }
     return await response.json();
   } catch (error) {
@@ -65,7 +59,7 @@ html += tutorials.map(t => `
 `).join('');
 
 container.innerHTML = html;
-
+}
 // ----------------------------
 // 4. Call function with files
 // ----------------------------
@@ -73,6 +67,7 @@ renderTutorials([
   "psychology_chapter1.json",
   // Add more later: "psychology_chapter2.json", ...
 ]);
+
 
 
 
