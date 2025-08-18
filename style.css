@@ -96,12 +96,12 @@ footer {
 }
 
 /* --- Responsive tweaks --- */
-@media (min-width: 500px) {
+@media (max-width: 900px) {
   body {
     padding: 10px;
   }
   .tutorial-card {
-    padding: 15px;
+    padding: auto;
   }
 
 }
@@ -112,6 +112,7 @@ tutorial-card {
 /*   background: #1f2937; */
  
   
+
 
 
 
