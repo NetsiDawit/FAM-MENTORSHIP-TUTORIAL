@@ -64,8 +64,8 @@ header h1 {
 
 .tutorial-desc {
   margin-bottom: 12px;
-/*   color: #555; */
-  color:black;
+  color: #555;
+/*   color:black; */
 }
 
 .tutorial-steps {
@@ -111,6 +111,7 @@ tutorial-card {
 /*   background: #1f2937; */
  
   
+
 
 
 
