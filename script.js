@@ -1,10 +1,82 @@
 // ----------------------------
 // 1. Get container
 // ----------------------------
-const container = document.getElementById('tutorials');
+// const container = document.getElementById('tutorials');
+
+// // ----------------------------
+// // 2. Load a single JSON file safely
+// // ----------------------------
+// async function loadTutorial(fileName) {
+//   try {
+//     const response = await fetch(`courses/${fileName}`);
+//     if (!response.ok) throw new Error("File not found: " + fileName);
+//     return await response.json();
+//   } catch (err) {
+//     console.error(err);
+//     return null;
+//   }
+// }
+
+// // ----------------------------
+// // 3. Render a tutorial dynamically
+// // ----------------------------
+// async function renderTutorial(fileName) {
+//   if (!fileName) {
+//     container.innerHTML = '<p class="no-tutorials">No tutorial selected.</p>';
+//     return;
+//   }
+
+//   const data = await loadTutorial(fileName);
+//   if (!data) {
+//     container.innerHTML = '<p class="no-tutorials">Tutorial not found.</p>';
+//     return;
+//   }
+
+//   let html = '';
+//   html +=` <h2 style="text-align:center; margin-bottom:20px;">${data.subject} - ${data.title}</h2>`;
+//   html += `<div class="tutorial-card">
+//              <div class="tutorial-desc">${data.description}</div>
+//              ${data.note ? `<div class="tutorial-note"><strong>Note:</strong> ${data.note}</div>` : ''}
+//              ${data.fullNotes ? `<div class="tutorial-full-notes">${data.fullNotes.replace(/\n/g, "<br>")}</div>` : ''}
+//            </div>`;
+
+//   container.innerHTML = html;
+// }
+
+// // ----------------------------
+// // 4. Get tutorial from URL and render
+// // ----------------------------
+// window.addEventListener("DOMContentLoaded", () => {
+//   const urlParams = new URLSearchParams(window.location.search);
+//   const tutorialFile = urlParams.get("tutorial"); // e.g. psychology_chapter1.json
+//   renderTutorial(tutorialFile);
+// });
+
+
+
+
+
+
+//********************************************************************************************************************************
 
 // ----------------------------
-// 2. Load a single JSON file safely
+// 1. Get container
+// ----------------------------
+ const container = document.getElementById('tutorials');
+
+// ----------------------------
+// 2. Define which chapters to show
+// Only add the JSON files you want to display
+// ----------------------------
+const tutorialsToShow = [
+  { subject: "Psychology", chapterFile: "psychology_chapter1.json" }, // first chapter
+  { subject: "Psychology", chapterFile: "psychology_chapter2.json" }, // next chapter
+  { subject: "Logic", chapterFile: "logic_chapter1.json" },            // another subject
+  // Add more chapters here anytime 
+];
+
+// ----------------------------
+// 3. Load a single JSON file safely
 // ----------------------------
 async function loadTutorial(fileName) {
   try {
@@ -18,126 +90,55 @@ async function loadTutorial(fileName) {
 }
 
 // ----------------------------
-// 3. Render a tutorial dynamically
+// 4. Render tutorials dynamically
 // ----------------------------
-async function renderTutorial(fileName) {
-  if (!fileName) {
-    container.innerHTML = '<p class="no-tutorials">No tutorial selected.</p>';
-    return;
-  }
-
-  const data = await loadTutorial(fileName);
-  if (!data) {
-    container.innerHTML = '<p class="no-tutorials">Tutorial not found.</p>';
+async function renderTutorials(tutorialList) {
+  if (!tutorialList || tutorialList.length === 0) {
+    // container.innerHTML = '<p class="no-tutorials">No tutorials to show.</p>';
+    container.innerHTML ="";
     return;
   }
 
   let html = '';
-  html +=` <h2 style="text-align:center; margin-bottom:20px;">${data.subject} - ${data.title}</h2>`;
-  html += `<div class="tutorial-card">
-             <div class="tutorial-desc">${data.description}</div>
-             ${data.note ? `<div class="tutorial-note"><strong>Note:</strong> ${data.note}</div>` : ''}
-             ${data.fullNotes ? `<div class="tutorial-full-notes">${data.fullNotes.replace(/\n/g, "<br>")}</div>` : ''}
-           </div>`;
 
-  container.innerHTML = html;
+  for (const item of tutorialList) {
+    const data = await loadTutorial(item.chapterFile);
+    if (!data) continue; // skip if JSON not found
+
+    html += `<h2 style="text-align:center; margin-bottom:20px;">${data.subject} - ${data.title}</h2>`;
+    html +=` <div class="tutorial-card">
+               <div class="tutorial-desc">${data.description}</div>
+               ${data.note ?` <div class="tutorial-note"><strong>Note:</strong> ${data.note}</div> `: ''}
+               ${data.fullNotes ? `<div class="tutorial-full-notes">${data.fullNotes.replace(/\n/g, "<br>")}</div>` : ''}
+             </div>`;
+  }
+
+  container.innerHTML = html || '<p class="no-tutorials">No tutorials available yet.</p>';
 }
-
-// ----------------------------
-// 4. Get tutorial from URL and render
-// ----------------------------
+   //get the code and render the code 
 window.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const tutorialFile = urlParams.get("tutorial"); // e.g. psychology_chapter1.json
-  renderTutorial(tutorialFile);
-});
+  const tutorialFile = urlParams.get("tutorial");
 
-
-
-
-
-
-//********************************************************************************************************************************
-
-// ----------------------------
-// 1. Get container
-// ----------------------------
-// const container = document.getElementById('tutorials');
-
-// ----------------------------
-// 2. Define which chapters to show
-// Only add the JSON files you want to display
-// ----------------------------
-// const tutorialsToShow = [
-//   { subject: "Psychology", chapterFile: "psychology_chapter1.json" }, // first chapter
-//   { subject: "Psychology", chapterFile: "psychology_chapter2.json" }, // next chapter
-  // { subject: "Logic", chapterFile: "logic_chapter1.json" },            // another subject
-  // Add more chapters here anytime
-];
-
-// ----------------------------
-// 3. Load a single JSON file safely
-// ----------------------------
-// async function loadTutorial(fileName) {
-//   try {
-//     const response = await fetch(`courses/${fileName}`);
-//     if (!response.ok) throw new Error("File not found: " + fileName);
-//     return await response.json();
-//   } catch (err) {
-//     console.error(err);
-//     return null;
-//   }
-// }
-
-// ----------------------------
-// 4. Render tutorials dynamically
-// ----------------------------
-// async function renderTutorials(tutorialList) {
-//   if (!tutorialList || tutorialList.length === 0) {
-//     // container.innerHTML = '<p class="no-tutorials">No tutorials to show.</p>';
-//     container.innerHTML ="";
-//     return;
-//   }
-
-//   let html = '';
-
-//   for (const item of tutorialList) {
-//     const data = await loadTutorial(item.chapterFile);
-//     if (!data) continue; // skip if JSON not found
-
-//     html += `<h2 style="text-align:center; margin-bottom:20px;">${data.subject} - ${data.title}</h2>`;
-//     html +=` <div class="tutorial-card">
-//                <div class="tutorial-desc">${data.description}</div>
-//                ${data.note ?` <div class="tutorial-note"><strong>Note:</strong> ${data.note}</div> `: ''}
-//                ${data.fullNotes ? `<div class="tutorial-full-notes">${data.fullNotes.replace(/\n/g, "<br>")}</div>` : ''}
-//              </div>`;
-//   }
-
-//   container.innerHTML = html || '<p class="no-tutorials">No tutorials available yet.</p>';
-// }
-//    //get the code and render the code 
-// window.addEventListener("DOMContentLoaded", () => {
-//   const urlParams = new URLSearchParams(window.location.search);
-//   const tutorialFile = urlParams.get("tutorial");
-
-//   if (tutorialFile) {
-//     fetch(/tutorials/${tutorialFile})
-//       .then(res => res.json())
-//       .then(data => {
-//         document.getElementById("title").innerText = data.subject + " - " + data.chapter;
-//         document.getElementById("author").innerText = "Prepared by: " + data.prepared_by;
-//         document.getElementById("content").innerText = data.fullNotes;
-//       })
-//       .catch(err => console.error("Failed to load tutorial:", err));
-//   }
-//   // });
+  if (tutorialFile) {
+    fetch(/tutorials/${tutorialFile})
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("title").innerText = data.subject + " - " + data.chapter;
+        document.getElementById("author").innerText = "Prepared by: " + data.prepared_by;
+        document.getElementById("content").innerText = data.fullNotes;
+      })
+      .catch(err => console.error("Failed to load tutorial:", err));
+  }
+   });
 
 
 
 // ----------------------------
 // 5. Execute function
 // ----------------------------
-// renderTutorials(tutorialsToShow);
+//
+renderTutorials(tutorialsToShow);
 
 
 //************************************************************************************************
@@ -212,6 +213,7 @@ window.addEventListener("DOMContentLoaded", () => {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
