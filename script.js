@@ -1,14 +1,14 @@
 //----------------------------
 //1. Get container
 //----------------------------
-let container = document.getElementById('tutorials');
+let container = document.getElementById('tutorial');
 console.log(20);
 // ----------------------------
 // 2. Load a single JSON file safely
 // ----------------------------
 async function loadTutorial(fileName) {
   try {
-    const response = await fetch(`/courses/${fileName}`);
+    const response = await fetch(`courses/${fileName}`);
     if (!response.ok) throw new Error("File not found: " + fileName);
     return await response.json();
   } catch (err) {
@@ -213,6 +213,7 @@ window.addEventListener("DOMContentLoaded", () => {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
