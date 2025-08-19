@@ -8,7 +8,7 @@ console.log(20);
 // ----------------------------
 async function loadTutorial(fileName) {
   try {
-    const response = await fetch(`/courses/${tutorialFile}`);
+    const response = await fetch(`/courses/${fileName}`);
     if (!response.ok) throw new Error("File not found: " + fileName);
     return await response.json();
   } catch (err) {
@@ -48,7 +48,7 @@ async function renderTutorial(fileName) {
 // ----------------------------
 window.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const tutorialFile = urlParams.get("courses"); // e.g. psychology_chapter1.json
+  const tutorialFile = urlParams.get("tutorial"); // e.g. psychology_chapter1.json
   renderTutorial(tutorialFile);
 });
 
@@ -213,6 +213,7 @@ window.addEventListener("DOMContentLoaded", () => {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
