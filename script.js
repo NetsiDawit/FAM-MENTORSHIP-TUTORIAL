@@ -54,6 +54,24 @@ async function renderTutorials(tutorialList) {
 
   container.innerHTML = html || '<p class="no-tutorials">No tutorials available yet.</p>';
 }
+//get the code and render the code 
+window.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const tutorialFile = urlParams.get("tutorial");
+
+  if (tutorialFile) {
+    fetch(/tutorials/${tutorialFile})
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("title").innerText = data.subject + " - " + data.chapter;
+        document.getElementById("author").innerText = "Prepared by: " + data.prepared_by;
+        document.getElementById("content").innerText = data.fullNotes;
+      })
+      .catch(err => console.error("Failed to load tutorial:", err));
+  }
+});
+
+
 
 // ----------------------------
 // 5. Execute function
@@ -133,6 +151,7 @@ renderTutorials(tutorialsToShow);
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
