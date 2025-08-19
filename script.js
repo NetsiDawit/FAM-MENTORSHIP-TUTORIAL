@@ -1,8 +1,8 @@
 ----------------------------
-1. Get container
+//1. Get container
 ----------------------------
 const container = document.getElementById('tutorials');
-
+console.log(20);
 // ----------------------------
 // 2. Load a single JSON file safely
 // ----------------------------
@@ -213,6 +213,7 @@ window.addEventListener("DOMContentLoaded", () => {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
