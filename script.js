@@ -1,6 +1,6 @@
-----------------------------
+//----------------------------
 //1. Get container
-----------------------------
+//----------------------------
 let container = document.getElementById('tutorials');
 console.log(20);
 // ----------------------------
@@ -213,6 +213,7 @@ window.addEventListener("DOMContentLoaded", () => {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
