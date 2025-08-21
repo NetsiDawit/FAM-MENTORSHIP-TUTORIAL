@@ -44,10 +44,21 @@ async function renderTutorial(fileName) {
 }
 
 
-// Now convert that HTML into an image
-  html2canvas(container).then(canvas => {
-    container.innerHTML = ""; // clear old HTML
-    container.appendChild(canvas); // show only the image
+//  Use html2canvas with auto size
+  html2canvas(container, {
+    scale: 2,              // Better quality (optional)
+    useCORS: true,         // If images are inside notes
+    logging: false,        // Disable console spam
+    windowWidth: document.documentElement.scrollWidth,
+    windowHeight: document.documentElement.scrollHeight
+  }).then(canvas => {
+    // Step 3: Replace HTML with the canvas (uncopyable)
+    container.innerHTML = "";
+    container.appendChild(canvas);
+
+    // Optional: Make canvas responsive
+    canvas.style.maxWidth = "100%";
+    canvas.style.height = "auto";
   });
 }
 //*****************************************************to use uncopyable tyle
@@ -267,6 +278,7 @@ function renderAsImage(text, containerId) {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
