@@ -4,6 +4,8 @@
   color: #d9534f; /* red-ish for visibility*/ 
 
 }
+
+
  
 {
   box-sizing: border-box;
@@ -22,6 +24,7 @@ body {
   padding: 20px;
 /*   color: #333; */
   color:white;
+    user-select: none;   /* prevent text highlight */
 }
 
 header h1 {
@@ -120,6 +123,7 @@ tutorial-card {
 /*   background: #1f2937; */
  
   
+
 
 
 
