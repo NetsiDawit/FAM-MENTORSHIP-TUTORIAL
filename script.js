@@ -51,7 +51,34 @@ window.addEventListener("DOMContentLoaded", () => {
   const tutorialFile = urlParams.get("tutorial"); // e.g. psychology_chapter1.json
   renderTutorial(tutorialFile);
 });
+// Function: render text as uncopyable image
+function renderAsImage(text, containerId) {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
 
+  // Set canvas size (adjust if your notes are long)
+  canvas.width = 800;
+  canvas.height = 1200;
+
+  // White background
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Text style
+  ctx.fillStyle = "black";
+  ctx.font = "20px Arial";
+
+  // Split into lines and draw
+  const lines = text.split("\n");
+  lines.forEach((line, i) => {
+    ctx.fillText(line, 20, 40 + i * 30);
+  });
+
+  // Clear old content, then add canvas
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+  container.appendChild(canvas);
+}
 
 
 
@@ -213,6 +240,7 @@ window.addEventListener("DOMContentLoaded", () => {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
