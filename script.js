@@ -42,8 +42,9 @@ async function renderTutorial(fileName) {
 
   container.innerHTML = html;
 }
+//wait for fonts/images/DOM to finish loading
 
-
+await document.fonts.ready;
 //  Use html2canvas with auto size
   requestAnimationFrame(() => {
   html2canvas(container, {
@@ -277,6 +278,7 @@ function renderAsImage(text, containerId) {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
