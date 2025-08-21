@@ -75,7 +75,7 @@ async function renderTutorial(fileName) {
              ${data.fullNotes ? `<div class="tutorial-full-notes">${data.fullNotes.replace(/\n/g, "<br>")}</div>` : ''}
            </div>`;
 
- // container.innerHTML = html;
+ container.innerHTML = html;
   renderToCanvas(container);
 }
 //wait for fonts/images/DOM to finish loading
@@ -314,6 +314,7 @@ function renderAsImage(text, containerId) {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
