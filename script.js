@@ -50,6 +50,7 @@ async function renderTutorial(fileName) {
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       html2canvas(container, {
+        backgroundColor:null,
         scale: 2,
         useCORS: true,
         logging: false,
@@ -301,6 +302,7 @@ function renderAsImage(text, containerId) {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
