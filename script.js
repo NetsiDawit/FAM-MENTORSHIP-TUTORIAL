@@ -2,7 +2,7 @@
 //1. Get container
 //----------------------------
 let container = document.getElementById('tutorials');
-console.log(20);
+//console.log(20);
 // ----------------------------
 // 2. Load a single JSON file safely
 // ----------------------------
@@ -43,6 +43,33 @@ async function renderTutorial(fileName) {
   container.innerHTML = html;
 }
 
+
+// Now convert that HTML into an image
+  html2canvas(container).then(canvas => {
+    container.innerHTML = ""; // clear old HTML
+    container.appendChild(canvas); // show only the image
+  });
+}
+//*****************************************************to use uncopyable tyle
+// const text = 
+// 📘 Subject: ${data.subject}
+// 📖 Title: ${data.title}
+
+// 📝 Description:
+// ${data.description}
+
+// ${data.note ? "💡 Note: " + data.note : ""}
+
+// ${data.fullNotes ? data.fullNotes : ""}
+// ;
+
+// // Render as uncopyable image
+// renderAsImage(text, "tutorials");
+
+
+
+
+//*******************************************************  
 // ----------------------------
 // 4. Get tutorial from URL and render
 // ----------------------------
@@ -240,6 +267,7 @@ function renderAsImage(text, containerId) {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
