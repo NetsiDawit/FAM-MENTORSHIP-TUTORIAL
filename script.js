@@ -20,6 +20,41 @@ async function loadTutorial(fileName) {
 // ----------------------------
 // 3. Render a tutorial dynamically
 // ----------------------------
+
+function renderToCanvas(container, maxRetries = 5, delay = 300) {
+  let attempt = 0;
+
+  function tryCapture() {
+    attempt++;
+    html2canvas(container, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      windowWidth: container.scrollWidth,
+      windowHeight: container.scrollHeight
+    }).then(canvas => {
+      // if canvas is empty (width/height small), retry
+      if ((canvas.width < 100 || canvas.height < 100) && attempt < maxRetries) {
+        console.warn(Canvas empty, retrying... (${attempt}));
+        setTimeout(tryCapture, delay);
+        return;
+      }
+
+      // success: replace HTML with uncopyable image
+      container.innerHTML = "";
+      container.appendChild(canvas);
+
+      canvas.style.maxWidth = "100%";
+      canvas.style.height = "auto";
+    });
+  }
+
+  // first attempt after paint
+  requestAnimationFrame(tryCapture);
+}
+
+
+
 async function renderTutorial(fileName) {
   if (!fileName) {
     container.innerHTML = '<p class="no-tutorials">No tutorial selected.</p>';
@@ -41,26 +76,27 @@ async function renderTutorial(fileName) {
            </div>`;
 
   container.innerHTML = html;
+  renderToCanvas(container);
 }
 //wait for fonts/images/DOM to finish loading
 
 //await document.fonts.ready;
 //  Use html2canvas with auto size
-  requestAnimationFrame(() => {
-  html2canvas(container, {
-    scale: 2,
-    useCORS: true,
-    logging: false,
-    windowWidth: document.documentElement.scrollWidth,
-    windowHeight: document.documentElement.scrollHeight
-  }).then(canvas => {
-    container.innerHTML = "";
-    container.appendChild(canvas);
+//   requestAnimationFrame(() => {
+//   html2canvas(container, {
+//     scale: 2,
+//     useCORS: true,
+//     logging: false,
+//     windowWidth: document.documentElement.scrollWidth,
+//     windowHeight: document.documentElement.scrollHeight
+//   }).then(canvas => {
+//     container.innerHTML = "";
+//     container.appendChild(canvas);
 
-    canvas.style.maxWidth = "100%";
-    canvas.style.height = "auto";
-  });
-});
+//     canvas.style.maxWidth = "100%";
+//     canvas.style.height = "auto";
+//   });
+// });
 //*****************************************************to use uncopyable tyle
 // const text = 
 // 📘 Subject: ${data.subject}
@@ -278,6 +314,7 @@ function renderAsImage(text, containerId) {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
