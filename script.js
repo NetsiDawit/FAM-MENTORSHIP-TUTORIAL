@@ -1,41 +1,41 @@
-function addTelegramLoginWidget() {
-  // Create the script element
-  const script = document.createElement("script");
-  script.src = "https://telegram.org/js/telegram-widget.js?15";
-  script.async = true;
+// function addTelegramLoginWidget() {
+//   // Create the script element
+//   const script = document.createElement("script");
+//   script.src = "https://telegram.org/js/telegram-widget.js?15";
+//   script.async = true;
 
-  // Set widget attributes
-  script.setAttribute("data-telegram-login", "@FAM_Mentorship_bot"); // Replace with your bot username
-  script.setAttribute("data-size", "large");
-  script.setAttribute("data-userpic", "false");
-  script.setAttribute("data-request-access", "write");
+//   // Set widget attributes
+//   script.setAttribute("data-telegram-login", "@FAM_Mentorship_bot"); // Replace with your bot username
+//   script.setAttribute("data-size", "large");
+//   script.setAttribute("data-userpic", "false");
+//   script.setAttribute("data-request-access", "write");
 
-  // This URL will receive the Telegram login data
-  script.setAttribute("data-auth-url", "https://your-server.com/telegram-login");
+//   // This URL will receive the Telegram login data
+//   script.setAttribute("data-auth-url", "https://your-server.com/telegram-login");
 
-  // Append the script to the body or a container div
-  document.body.appendChild(script);
-}
+//   // Append the script to the body or a container div
+//   document.body.appendChild(script);
+// }
 
-// Call this function at the beginning
-addTelegramLoginWidget();
+// // Call this function at the beginning
+// addTelegramLoginWidget();
 
 
 
-//for token purpose
+// //for token purpose
 
-async function loadTutorial(token, telegram_id) {
-  try {
-    const res = await fetch(`https://your-server.com/verify?token=${token}&telegram_id=${telegram_id}`);
-    if (!res.ok) throw new Error("Access denied");
+// async function loadTutorial(token, telegram_id) {
+//   try {
+//     const res = await fetch(`https://your-server.com/verify?token=${token}&telegram_id=${telegram_id}`);
+//     if (!res.ok) throw new Error("Access denied");
 
-    const data = await res.json();
-    console.log("Tutorial:", data.tutorial);
-    // Load tutorial content here
-  } catch (err) {
-    document.body.innerHTML = "<h2>Access Denied: You must be a member of the group</h2>";
-  }
-}
+//     const data = await res.json();
+//     console.log("Tutorial:", data.tutorial);
+//     // Load tutorial content here
+//   } catch (err) {
+//     document.body.innerHTML = "<h2>Access Denied: You must be a member of the group</h2>";
+//   }
+// }
 
 
 //*********************************************************************************************************************************************
@@ -343,6 +343,7 @@ function renderAsImage(text, containerId) {
 //   `${subject.toLowerCase()}_chapter1.json`,
 //   // Add more later: "psychology_chapter2.json", ...
 // ]);
+
 
 
 
