@@ -24,9 +24,12 @@ bot.onText(/\/post (.+)/, (msg, match) => {
 👨‍🏫 Prepared by: ${data.prepared_by}
 📝 ${data.description}`;
 
-  const url = `${process.env.SERVER_URL}/view?file=${encodeURIComponent(
-    filename
-  )}&userId=${userId}`;
+
+const  url: `${process.env.MINI_APP_URL}?tutorial=${encodeURIComponent(filename)}&token=SECURE123`,
+
+  // const url = `${process.env.SERVER_URL}/view?file=${encodeURIComponent(
+  //   filename
+  // )}&userId=${userId}`;
 
   bot.sendMessage(process.env.CHANNEL_ID, text, {
     reply_markup: {
