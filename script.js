@@ -52,7 +52,7 @@
 //----------------------------
 let container = document.getElementById('tutorials');
 // //console.log(20);
-----------------------------
+//----------------------------
 //2. Load a single JSON file safely
 //---------------------------- first to check members id****************************
 async function loadTutorial(fileName) {
@@ -69,9 +69,9 @@ async function loadTutorial(fileName) {
 //************************************************************
 
 
-----------------------------
-3. Render a tutorial dynamically
-----------------------------
+// ----------------------------
+// 3. Render a tutorial dynamically
+// ----------------------------
 
 
 
@@ -167,6 +167,7 @@ function renderAsImage(text, containerId) {
 
 
 //********************************************************************************************************************************
+
 
 
 
