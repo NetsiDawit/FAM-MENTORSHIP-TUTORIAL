@@ -33,6 +33,22 @@ async function loadTutorial(fileName, userId) {
   }
 }
 
+
+const SERVER_URL = "https://fam-mentorship-server.onrender.com";
+
+async function loadTutorial(fileName) {
+  try {
+    const response = await fetch(`${SERVER_URL}/view?tutorial=${fileName}`, {
+      credentials: "include"
+    });
+    if (!response.ok) throw new Error("Access denied!");
+    return await response.json();
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
 // ----------------------------
 // 3. Render a tutorial dynamically
 // ----------------------------
@@ -131,6 +147,7 @@ function renderAsImage(text, containerId) {
 
 
 //********************************************************************************************************************************
+
 
 
 
