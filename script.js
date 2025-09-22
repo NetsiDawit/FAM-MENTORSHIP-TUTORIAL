@@ -7,47 +7,49 @@
 //----------------------------
 let container = document.getElementById('tutorials');
 //console.log(20);
-// ----------------------------
-// 2. Load a single JSON file safely
-// ---------------------------- first to check members id****************************
-// async function loadTutorial(fileName) {
-//   try {
-//     const response = await fetch(`/courses/${fileName}`);
-//     if (!response.ok) throw new Error("File not found: " + fileName);
-//     return await response.json();
-//   } catch (err) {
-//     console.error(err);
-//     return null;
-//   }
-// }
-async function loadTutorial(fileName, userId) {
-  try {
-    const res = await fetch(
-      `https://your-server.onrender.com/view?file=${fileName}&userId=${userId}`
-    );
-    if (!res.ok) throw new Error("Unauthorized or file missing");
-    return await res.json();
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
-}
-
-
-const SERVER_URL = "https://fam-mentorship-server.onrender.com";
-
+----------------------------
+//2. Load a single JSON file safely
+//---------------------------- first to check members id****************************
 async function loadTutorial(fileName) {
   try {
-    const response = await fetch(`${SERVER_URL}/view?tutorial=${fileName}`, {
-      credentials: "include"
-    });
-    if (!response.ok) throw new Error("Access denied!");
+    const response = await fetch(`/courses/${fileName}`);
+    if (!response.ok) throw new Error("File not found: " + fileName);
     return await response.json();
   } catch (err) {
     console.error(err);
     return null;
   }
 }
+
+//************************************************************
+// async function loadTutorial(fileName, userId) {
+//   try {
+//     const res = await fetch(
+//       `https://your-server.onrender.com/view?file=${fileName}&userId=${userId}`
+//     );
+//     if (!res.ok) throw new Error("Unauthorized or file missing");
+//     return await res.json();
+//   } catch (err) {
+//     console.error(err);
+//     return null;
+//   }
+// }
+
+
+// const SERVER_URL = "https://fam-mentorship-server.onrender.com";
+
+// async function loadTutorial(fileName) {
+//   try {
+//     const response = await fetch(`${SERVER_URL}/view?tutorial=${fileName}`, {
+//       credentials: "include"
+//     });
+//     if (!response.ok) throw new Error("Access denied!");
+//     return await response.json();
+//   } catch (err) {
+//     console.error(err);
+//     return null;
+//   }
+// }
 
 // ----------------------------
 // 3. Render a tutorial dynamically
@@ -147,6 +149,7 @@ function renderAsImage(text, containerId) {
 
 
 //********************************************************************************************************************************
+
 
 
 
