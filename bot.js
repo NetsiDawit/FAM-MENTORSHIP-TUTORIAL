@@ -7,8 +7,8 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 
 // ⚠️ Hardcoded token and group for simplicity (unsafe but per your request)
-const BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN";
-const ALLOWED_GROUP_ID = -1001234567890; // replace with your channel/group ID
+const BOT_TOKEN = "7622044405:AAG4TbGfbQktuPrrFqtqU2os_PJom4vxpog";
+const ALLOWED_GROUP_ID = -1003054441977; // replace with your channel/group ID
 
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
