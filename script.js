@@ -9,12 +9,24 @@ let container = document.getElementById('tutorials');
 //console.log(20);
 // ----------------------------
 // 2. Load a single JSON file safely
-// ----------------------------
-async function loadTutorial(fileName) {
+// ---------------------------- first to check members id****************************
+// async function loadTutorial(fileName) {
+//   try {
+//     const response = await fetch(`/courses/${fileName}`);
+//     if (!response.ok) throw new Error("File not found: " + fileName);
+//     return await response.json();
+//   } catch (err) {
+//     console.error(err);
+//     return null;
+//   }
+// }
+async function loadTutorial(fileName, userId) {
   try {
-    const response = await fetch(`/courses/${fileName}`);
-    if (!response.ok) throw new Error("File not found: " + fileName);
-    return await response.json();
+    const res = await fetch(
+      `https://your-server.onrender.com/view?file=${fileName}&userId=${userId}`
+    );
+    if (!res.ok) throw new Error("Unauthorized or file missing");
+    return await res.json();
   } catch (err) {
     console.error(err);
     return null;
@@ -119,6 +131,7 @@ function renderAsImage(text, containerId) {
 
 
 //********************************************************************************************************************************
+
 
 
 
