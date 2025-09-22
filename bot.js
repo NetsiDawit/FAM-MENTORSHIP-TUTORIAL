@@ -1,3 +1,66 @@
+require("dotenv").config();
+const fs = require("fs");
+const TelegramBot = require("node-telegram-bot-api");
+
+const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
+
+// Post a single tutorial
+bot.onText(/\/post (.+)/, (msg, match) => {
+  const userId = msg.from.id;
+  if (userId != process.env.ADMIN_ID) return;
+
+  const filename = match[1];
+  const path = `./courses/${filename}`;
+  if (!fs.existsSync(path)) {
+    bot.sendMessage(userId, "❌ File not found");
+    return;
+  }
+
+  const raw = fs.readFileSync(path, "utf-8");
+  const data = JSON.parse(raw);
+
+  const text = `📘 Subject: ${data.subject}
+📖 Chapter: ${data.chapter}
+👨‍🏫 Prepared by: ${data.prepared_by}
+📝 ${data.description}`;
+
+  const url = `${process.env.SERVER_URL}/view?file=${encodeURIComponent(
+    filename
+  )}&userId=${userId}`;
+
+  bot.sendMessage(process.env.CHANNEL_ID, text, {
+    reply_markup: {
+      inline_keyboard: [[{ text: "📂 Open Tutorial", url }]],
+    },
+    protect_content: true,
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // // Load environment variables
 // require('dotenv').config();
 
