@@ -1,3 +1,48 @@
+// Get container
+let container = document.getElementById('tutorials');
+
+// Load tutorial from server instead of directly from /courses
+async function loadTutorial(fileName) {
+  try {
+    const response = await fetch(`https://your-server.onrender.com/tutorial/${fileName}`, {
+      credentials: "include"  // ensures session/cookies if needed
+    });
+    if (!response.ok) throw new Error("Tutorial not found: " + fileName);
+    return await response.json();
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+// Render tutorial
+async function renderTutorial(fileName) {
+  if (!fileName) {
+    container.innerHTML = '<p class="no-tutorials">No tutorial selected.</p>';
+    return;
+  }
+
+  const data = await loadTutorial(fileName);
+  if (!data) {
+    container.innerHTML = '<p class="no-tutorials">Tutorial not found or access denied.</p>';
+    return;
+  }
+
+  let html = '';
+  html += `<h2 style="text-align:center; margin-bottom:20px;">${data.subject} - ${data.title}</h2>`;
+  html += `<div class="tutorial-card">
+             <div class="tutorial-desc">${data.description}</div>
+             ${data.note ? `<div class="tutorial-note"><strong>Note:</strong> ${data.note}</div>` : ''}
+             ${data.fullNotes ? `<div class="tutorial-full-notes">${data.fullNotes.replace(/\n/g, "<br>")}</div>` : ''}
+           </div>`;
+  container.innerHTML = html;
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const tutorialFile = urlParams.get("tutorial");
+  renderTutorial(tutorialFile);
+});
 
 
 
@@ -5,8 +50,8 @@
 //----------------------------
 //1. Get container
 //----------------------------
-let container = document.getElementById('tutorials');
-//console.log(20);
+// let container = document.getElementById('tutorials');
+// //console.log(20);
 ----------------------------
 //2. Load a single JSON file safely
 //---------------------------- first to check members id****************************
@@ -22,34 +67,7 @@ let container = document.getElementById('tutorials');
 // }
 
 //************************************************************
-async function loadTutorial(fileName, userId) {
-  try {
-    const res = await fetch(
-      `https://your-server.onrender.com/view?file=${fileName}&userId=${userId}`
-    );
-    if (!res.ok) throw new Error("Unauthorized or file missing");
-    return await res.json();
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
-}
 
-
-const SERVER_URL = "https://fam-mentorship-server.onrender.com";
-
-async function loadTutorial(fileName) {
-  try {
-    const response = await fetch(`${SERVER_URL}/view?tutorial=${fileName}`, {
-      credentials: "include"
-    });
-    if (!response.ok) throw new Error("Access denied!");
-    return await response.json();
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
-}
 
 // ----------------------------
 // 3. Render a tutorial dynamically
@@ -58,27 +76,27 @@ async function loadTutorial(fileName) {
 
 
 
-async function renderTutorial(fileName) {
-  if (!fileName) {
-    container.innerHTML = '<p class="no-tutorials">No tutorial selected.</p>';
-    return;
-  }
+// async function renderTutorial(fileName) {
+//   if (!fileName) {
+//     container.innerHTML = '<p class="no-tutorials">No tutorial selected.</p>';
+//     return;
+//   }
 
-  const data = await loadTutorial(fileName);
-  if (!data) {
-    container.innerHTML = '<p class="no-tutorials">Tutorial not found.</p>';
-    return;
-  }
+//   const data = await loadTutorial(fileName);
+//   if (!data) {
+//     container.innerHTML = '<p class="no-tutorials">Tutorial not found.</p>';
+//     return;
+//   }
 
-  let html = '';
-  html +=` <h2 style="text-align:center; margin-bottom:20px;">${data.subject} - ${data.title}</h2>`;
-  html += `<div class="tutorial-card">
-             <div class="tutorial-desc">${data.description}</div>
-             ${data.note ? `<div class="tutorial-note"><strong>Note:</strong> ${data.note}</div>` : ''}
-             ${data.fullNotes ? `<div class="tutorial-full-notes">${data.fullNotes.replace(/\n/g, "<br>")}</div>` : ''}
-           </div>`;
+//   let html = '';
+//   html +=` <h2 style="text-align:center; margin-bottom:20px;">${data.subject} - ${data.title}</h2>`;
+//   html += `<div class="tutorial-card">
+//              <div class="tutorial-desc">${data.description}</div>
+//              ${data.note ? `<div class="tutorial-note"><strong>Note:</strong> ${data.note}</div>` : ''}
+//              ${data.fullNotes ? `<div class="tutorial-full-notes">${data.fullNotes.replace(/\n/g, "<br>")}</div>` : ''}
+//            </div>`;
 
- container.innerHTML = html;
+//  container.innerHTML = html;
 
 // 2. Wait 2 frames → ensures browser paints it
   requestAnimationFrame(() => {
@@ -149,6 +167,7 @@ function renderAsImage(text, containerId) {
 
 
 //********************************************************************************************************************************
+
 
 
 
