@@ -6,9 +6,10 @@ const TelegramBot = require("node-telegram-bot-api");
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// ⚠️ Hardcoded token and group for simplicity (unsafe but per your request)
-const BOT_TOKEN = "7622044405:AAG4TbGfbQktuPrrFqtqU2os_PJom4vxpog";
-const ALLOWED_GROUP_ID = -1003054441977; // replace with your channel/group ID
+// ⚠️ Hardcoded values (not safe for production, but per your request)
+const BOT_TOKEN = "7622044405:AAG4TbGfbQktuPrrFqtqU2os_PJom4vxpog"; // your bot token
+const ALLOWED_GROUP_ID = -1003054441977; // your channel/group ID
+const ADMIN_ID = 7401044824; // 👈 replace with your Telegram user ID
 
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
@@ -21,9 +22,9 @@ app.get("/tutorial/:file", (req, res) => {
     return res.status(404).json({ error: "Tutorial not found" });
   }
 
-  // ✅ Security: Only allow if request comes from your bot (super simple check)
+  // ✅ Security: Only allow if request comes from your mini app
   const referer = req.get("referer") || "";
-  if (!referer.includes("your-netlify-miniapp.netlify.app")) {
+  if (!referer.includes("glistening-panda-32a0f8.netlify.app")) {
     return res.status(403).json({ error: "Access denied" });
   }
 
@@ -35,19 +36,28 @@ app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
 
-// Example: send tutorial links via bot
+// ✅ Only admin can post tutorials
 bot.onText(/\/tutorial (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
+  const userId = msg.from.id;
   const fileName = match[1];
 
+  // Restrict to your group
   if (chatId !== ALLOWED_GROUP_ID) {
     return bot.sendMessage(chatId, "❌ You are not allowed to access tutorials.");
   }
 
-  bot.sendMessage(chatId, `✅ Open tutorial: https://your-netlify-miniapp.netlify.app?tutorial=${fileName}`);
+  // Restrict to only you (admin)
+  if (userId !== ADMIN_ID) {
+    return bot.sendMessage(chatId, "❌ Only the admin can post tutorials.");
+  }
+
+  // ✅ Send tutorial link
+  bot.sendMessage(
+    chatId,
+    `✅ Open tutorial: https://your-netlify-miniapp.netlify.app?tutorial=${fileName}`
+  );
 });
-
-
 
 
 
