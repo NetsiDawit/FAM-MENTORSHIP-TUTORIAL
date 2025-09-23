@@ -1,11 +1,14 @@
 // Get container
 let container = document.getElementById("tutorials");
 
+const SERVER_URL = "https://fam-mentorship-tutorial.onrender.com";
+
+
 // Load tutorial securely from your server with token
 async function loadTutorial(fileName) {
   try {
     const response = await fetch(
-      `https://fam-mentorship-tutorial.onrender.com/tutorial/${fileName}?token=SECURE123`,
+      `SERVER_URL/tutorial/${fileName}?token=SECURE123`,
       { credentials: "include" }
     );
 
@@ -198,6 +201,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 //********************************************************************************************************************************
+
 
 
 
