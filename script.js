@@ -5,7 +5,7 @@ let container = document.getElementById("tutorials");
 async function loadTutorial(fileName) {
   try {
     const response = await fetch(
-      `https://your-server.onrender.com/tutorial/${fileName}`,
+      `https://fam-mentorship-tutorial.onrender.com/tutorial/${fileName}`,
       {
         credentials: "include", // allows session/cookies if used later
       }
@@ -212,6 +212,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 //********************************************************************************************************************************
+
 
 
 
