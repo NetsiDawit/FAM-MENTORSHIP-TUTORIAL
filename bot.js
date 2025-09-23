@@ -6,21 +6,27 @@ const TelegramBot = require("node-telegram-bot-api");
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// Hardcoded values
-const BOT_TOKEN = "7622044405:AAG4TbGfbQktuPrrFqtqU2os_PJom4vxpog";
-const CHANNEL_ID = -1003054441977; // your channel/group ID
-const ADMIN_ID = 7401044824; // your Telegram user ID
-const SERVER_TOKEN = "SECURE123";
-const MINI_APP_URL = "https://glistening-panda-32a0f8.netlify.app"; // your deployed mini app
+// --------------------------
+// ⚠️ Replace these with your own
+// --------------------------
+const BOT_TOKEN = "7622044405:AAG4TbGfbQktuPrrFqtqU2os_PJom4vxpog"; // your bot token
+const ADMIN_ID = 7401044824; // your Telegram user ID (only admin can post)
+const CHANNEL_ID = -1003054441977; // your Telegram channel/group ID
+const SERVER_TOKEN = "SECURE123"; // token for mini app to access tutorials
+const MINI_APP_URL = "https://glistening-panda-32a0f8.netlify.app";
+ // your server URL
 
+// --------------------------
+// Initialize bot
+// --------------------------
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
 // --------------------------
-// Express server to serve tutorials
+// Serve tutorials securely
 // --------------------------
 app.get("/tutorial/:file", (req, res) => {
   const fileName = req.params.file;
-  const token = req.query.token; // check query param
+  const token = req.query.token;
   const filePath = path.join(__dirname, "courses", fileName);
 
   if (!fs.existsSync(filePath))
@@ -33,23 +39,29 @@ app.get("/tutorial/:file", (req, res) => {
   res.json(data);
 });
 
+// --------------------------
+// Start server
+// --------------------------
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
 
 // --------------------------
-// Telegram bot command to post tutorial
+// Only admin can post tutorials
 // --------------------------
 bot.onText(/\/tutorial (.+)/, (msg, match) => {
-  const fileName = match[1];
+  const chatId = msg.chat.id;
   const userId = msg.from.id;
-
-  // Only admin can post
-  if (userId !== ADMIN_ID)
-    return bot.sendMessage(userId, "❌ Only the admin can post tutorials.");
-
+  const fileName = match[1];
   const filePath = path.join(__dirname, "courses", fileName);
-  if (!fs.existsSync(filePath))
-    return bot.sendMessage(userId, "❌ Tutorial not found!");
 
+  // Check admin
+  if (userId !== ADMIN_ID)
+    return bot.sendMessage(chatId, "❌ Only the admin can post tutorials.");
+
+  // Check file exists
+  if (!fs.existsSync(filePath))
+    return bot.sendMessage(chatId, "❌ Tutorial not found!");
+
+  // Read tutorial JSON
   const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
   // Build message text
@@ -58,22 +70,21 @@ bot.onText(/\/tutorial (.+)/, (msg, match) => {
 👨‍🏫 Prepared by: ${data.prepared_by}
 📝 ${data.description}`;
 
-  // Inline button linking to mini app with server token
+  // Add button to open tutorial
   const button = {
     reply_markup: {
       inline_keyboard: [
         [
           {
             text: "Open Tutorial",
-            url: `${MINI_APP_URL}?tutorial=${encodeURIComponent(
-              fileName
-            )}&token=${SERVER_TOKEN}`
-          }
-        ]
-      ]
-    }
+            url: `${MINI_APP_URL}?tutorial=${encodeURIComponent(fileName)}&token=${SERVER_TOKEN}`,
+          },
+        ],
+      ],
+    },
   };
 
-  // ✅ Send to your **channel** instead of admin chat
+  // Send to channel
   bot.sendMessage(CHANNEL_ID, messageText, button);
+  bot.sendMessage(chatId, "✅ Tutorial posted to the channel with a button.");
 });
