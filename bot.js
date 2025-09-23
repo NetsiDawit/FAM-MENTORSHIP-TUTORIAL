@@ -13,7 +13,8 @@ const BOT_TOKEN = "7622044405:AAG4TbGfbQktuPrrFqtqU2os_PJom4vxpog"; // your bot 
 const ADMIN_ID = 7401044824; // your Telegram user ID (only admin can post)
 const CHANNEL_ID = -1003054441977; // your Telegram channel/group ID
 const SERVER_TOKEN = "SECURE123"; // token for mini app to access tutorials
-const MINI_APP_URL = "https://glistening-panda-32a0f8.netlify.app";
+const MINI_APP_URL = "https://fam-mentorship-tutorial.onrender.com"; // your server URL
+";
  // your server URL
 
 // --------------------------
