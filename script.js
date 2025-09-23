@@ -33,7 +33,7 @@ async function renderTutorial(fileName) {
   }
 
   // Build HTML
-  let html = "";
+  let html ='';
   html += `<h2 style="text-align:center; margin-bottom:20px;">${data.subject} - ${data.chapter}</h2>`;
   html += `<div class="tutorial-card">
              <div class="tutorial-desc">${data.description}</div>
@@ -197,6 +197,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 //********************************************************************************************************************************
+
 
 
 
