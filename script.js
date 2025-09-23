@@ -9,7 +9,7 @@ async function loadTutorial(fileName) {
   try {
     const response = await fetch(
       `${MINI_APP_URL}/tutorial/${fileName}?token=SECURE123`,
-      { credentials: "include" }
+     
     );
 
     if (!response.ok) throw new Error("Tutorial not found or access denied");
@@ -201,6 +201,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 //********************************************************************************************************************************
+
 
 
 
