@@ -1,12 +1,15 @@
 // Get container
-let container = document.getElementById('tutorials');
+let container = document.getElementById("tutorials");
 
-// Load tutorial from server instead of directly from /courses
+// Load tutorial securely from your server
 async function loadTutorial(fileName) {
   try {
-    const response = await fetch(`https://your-server.onrender.com/tutorial/${fileName}`, {
-      credentials: "include"  // ensures session/cookies if needed
-    });
+    const response = await fetch(
+      `https://your-server.onrender.com/tutorial/${fileName}`,
+      {
+        credentials: "include", // allows session/cookies if used later
+      }
+    );
     if (!response.ok) throw new Error("Tutorial not found: " + fileName);
     return await response.json();
   } catch (err) {
@@ -15,35 +18,73 @@ async function loadTutorial(fileName) {
   }
 }
 
-// Render tutorial
+// Render tutorial as image (using html2canvas)
 async function renderTutorial(fileName) {
   if (!fileName) {
-    container.innerHTML = '<p class="no-tutorials">No tutorial selected.</p>';
+    container.innerHTML =
+      '<p class="no-tutorials">No tutorial selected.</p>';
     return;
   }
 
   const data = await loadTutorial(fileName);
   if (!data) {
-    container.innerHTML = '<p class="no-tutorials">Tutorial not found or access denied.</p>';
+    container.innerHTML =
+      '<p class="no-tutorials">Tutorial not found or access denied.</p>';
     return;
   }
 
-  let html = '';
+  // Build tutorial HTML first
+  let html = "";
   html += `<h2 style="text-align:center; margin-bottom:20px;">${data.subject} - ${data.title}</h2>`;
   html += `<div class="tutorial-card">
              <div class="tutorial-desc">${data.description}</div>
-             ${data.note ? `<div class="tutorial-note"><strong>Note:</strong> ${data.note}</div>` : ''}
-             ${data.fullNotes ? `<div class="tutorial-full-notes">${data.fullNotes.replace(/\n/g, "<br>")}</div>` : ''}
+             ${
+               data.note
+                 ? `<div class="tutorial-note"><strong>Note:</strong> ${data.note}</div>`
+                 : ""
+             }
+             ${
+               data.fullNotes
+                 ? `<div class="tutorial-full-notes">${data.fullNotes.replace(
+                     /\n/g,
+                     "<br>"
+                   )}</div>`
+                 : ""
+             }
            </div>`;
+
+  // Insert raw HTML temporarily
   container.innerHTML = html;
+
+  // Use html2canvas to convert it into an image
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      html2canvas(container, {
+        backgroundColor: null,
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        windowWidth: container.scrollWidth,
+        windowHeight: container.scrollHeight,
+      }).then((canvas) => {
+        // Replace HTML with the canvas
+        container.innerHTML = "";
+        container.appendChild(canvas);
+
+        // Adjust style so it fits nicely
+        canvas.style.maxWidth = "100%";
+        canvas.style.height = "auto";
+      });
+    });
+  });
 }
 
+// Load tutorial from URL
 window.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const tutorialFile = urlParams.get("tutorial");
+  const tutorialFile = urlParams.get("tutorial"); // e.g. psychology_chapter1.json
   renderTutorial(tutorialFile);
 });
-
 
 
 
@@ -171,6 +212,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 //********************************************************************************************************************************
+
 
 
 
