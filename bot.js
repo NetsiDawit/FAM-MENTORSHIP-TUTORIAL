@@ -78,7 +78,7 @@ bot.onText(/\/tutorial (.+)/, (msg, match) => {
         [
           {
             text: "Open Tutorial",
-            url: `${MINI_APP_URL}?tutorial=${encodeURIComponent(fileName)}&token=${SERVER_TOKEN}`,
+            url: `${MINI_APP_URL}/tutorial/${fileName}?token=SECURE123`,
           },
         ],
       ],
