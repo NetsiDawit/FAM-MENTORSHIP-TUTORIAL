@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 10000;
 
 // ⚠️ Replace with your bot token, group ID, and your Telegram user ID
 const BOT_TOKEN = "7622044405:AAG4TbGfbQktuPrrFqtqU2os_PJom4vxpog";
-const ALLOWED_GROUP_ID = -1003054441977;
+const ALLOWED_GROUP_ID = -1002915012797;
 const ADMIN_ID = 7401044824;
 
 // Security token for mini app fetch
@@ -46,23 +46,21 @@ app.listen(PORT, () => {
 // Telegram bot: only admin can post
 // -----------------------------
 bot.onText(/\/tutorial (.+)/, (msg, match) => {
+  const fileName = match[1];
   const chatId = msg.chat.id;
   const userId = msg.from.id;
-  const fileName = match[1];
-
-  // Restrict to your group
-  if (chatId !== ALLOWED_GROUP_ID) {
-    return bot.sendMessage(chatId, "❌ You are not allowed to access tutorials.");
-  }
 
   // Only admin can post
   if (userId !== ADMIN_ID) {
     return bot.sendMessage(chatId, "❌ Only the admin can post tutorials.");
   }
 
-  // Send tutorial link with token
+  // Send tutorial link to your channel
   bot.sendMessage(
-    chatId,
-    `✅ Open tutorial: https://glistening-panda-32a0f8.netlify.app?tutorial=${fileName}&token=${SERVER_TOKEN}`
+    ALLOWED_GROUP_ID,
+    `✅ Open tutorial: https://glistening-panda-32a0f8.netlify.app?tutorial=${fileName}&token=SECURE123`
   );
+
+  // Confirm to admin
+  bot.sendMessage(chatId, `✅ Tutorial link sent to the channel.`);
 });
