@@ -55,7 +55,7 @@ bot.onText(/\/tutorial (.+)/, (msg, match) => {
   // ✅ Send tutorial link
   bot.sendMessage(
     chatId,
-    `✅ Open tutorial: https://your-netlify-miniapp.netlify.app?tutorial=${fileName}`
+    `✅ Open tutorial: https://glistening-panda-32a0f8.netlify.app?tutorial=${fileName}`
   );
 });
 
