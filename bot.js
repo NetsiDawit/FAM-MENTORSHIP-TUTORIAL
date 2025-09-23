@@ -1,51 +1,51 @@
-// const express = require("express");
-// const fs = require("fs");
-// const path = require("path");
-// const TelegramBot = require("node-telegram-bot-api");
+const express = require("express");
+const fs = require("fs");
+const path = require("path");
+const TelegramBot = require("node-telegram-bot-api");
 
-// const app = express();
-// const PORT = process.env.PORT || 10000;
+const app = express();
+const PORT = process.env.PORT || 10000;
 
-// // ⚠️ Hardcoded token and group for simplicity (unsafe but per your request)
-// const BOT_TOKEN = "7622044405:AAG4TbGfbQktuPrrFqtqU2os_PJom4vxpog";
-// const ALLOWED_GROUP_ID = -1003054441977; // replace with your channel/group ID
+// ⚠️ Hardcoded token and group for simplicity (unsafe but per your request)
+const BOT_TOKEN = "7622044405:AAG4TbGfbQktuPrrFqtqU2os_PJom4vxpog";
+const ALLOWED_GROUP_ID = -1003054441977; // replace with your channel/group ID
 
-// const bot = new TelegramBot(BOT_TOKEN, { polling: true });
+const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
-// // Serve tutorial endpoint
-// app.get("/tutorial/:file", (req, res) => {
-//   const fileName = req.params.file;
-//   const filePath = path.join(__dirname, "courses", fileName);
+// Serve tutorial endpoint
+app.get("/tutorial/:file", (req, res) => {
+  const fileName = req.params.file;
+  const filePath = path.join(__dirname, "courses", fileName);
 
-//   if (!fs.existsSync(filePath)) {
-//     return res.status(404).json({ error: "Tutorial not found" });
-//   }
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ error: "Tutorial not found" });
+  }
 
-//   // ✅ Security: Only allow if request comes from your bot (super simple check)
-//   const referer = req.get("referer") || "";
-//   if (!referer.includes("your-netlify-miniapp.netlify.app")) {
-//     return res.status(403).json({ error: "Access denied" });
-//   }
+  // ✅ Security: Only allow if request comes from your bot (super simple check)
+  const referer = req.get("referer") || "";
+  if (!referer.includes("your-netlify-miniapp.netlify.app")) {
+    return res.status(403).json({ error: "Access denied" });
+  }
 
-//   const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
-//   res.json(data);
-// });
+  const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  res.json(data);
+});
 
-// app.listen(PORT, () => {
-//   console.log(`✅ Server running on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
 
-// // Example: send tutorial links via bot
-// bot.onText(/\/tutorial (.+)/, (msg, match) => {
-//   const chatId = msg.chat.id;
-//   const fileName = match[1];
+// Example: send tutorial links via bot
+bot.onText(/\/tutorial (.+)/, (msg, match) => {
+  const chatId = msg.chat.id;
+  const fileName = match[1];
 
-//   if (chatId !== ALLOWED_GROUP_ID) {
-//     return bot.sendMessage(chatId, "❌ You are not allowed to access tutorials.");
-//   }
+  if (chatId !== ALLOWED_GROUP_ID) {
+    return bot.sendMessage(chatId, "❌ You are not allowed to access tutorials.");
+  }
 
-//   bot.sendMessage(chatId, `✅ Open tutorial: https://your-netlify-miniapp.netlify.app?tutorial=${fileName}`);
-// });
+  bot.sendMessage(chatId, `✅ Open tutorial: https://your-netlify-miniapp.netlify.app?tutorial=${fileName}`);
+});
 
 
 
