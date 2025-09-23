@@ -18,6 +18,7 @@ async function loadTutorial(fileName) {
   }
 }
 
+
 // Render tutorial as image
 async function renderTutorial(fileName) {
   if (!fileName) {
@@ -197,6 +198,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 //********************************************************************************************************************************
+
 
 
 
