@@ -50,31 +50,26 @@ bot.onText(/\/tutorial (.+)/, (msg, match) => {
   const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
   // Build message text
-  const messageText = `📘 Subject: ${data.subject}
+const MINI_APP_URL = "https://glistening-panda-32a0f8.netlify.app"; // your deployed mini app
+const messageText = `📘 Subject: ${data.subject}
 📖 Chapter: ${data.chapter}
 👨‍🏫 Prepared by: ${data.prepared_by}
 📝 ${data.description}`;
 
-  // Build inline button
-  const button = {
-    reply_markup: {
-      inline_keyboard: [
-        [
-          {
-            text: "Open Tutorial",
-            url: `${MINI_APP_URL}/tutorial/${encodeURIComponent(
-              fileName
-            )}?token=${SERVER_TOKEN}`,
-          },
-        ],
-      ],
-    },
-    protect_content: true, // prevents forwarding if Telegram allows
-  };
+const button = {
+  reply_markup: {
+    inline_keyboard: [
+      [
+        {
+          text: "Open Tutorial",
+          url: `${MINI_APP_URL}?tutorial=${encodeURIComponent(fileName)}`
+        }
+      ]
+    ]
+  }
+};
 
-  // Send to channel
-  bot.sendMessage(ALLOWED_GROUP_ID, messageText, button);
+bot.sendMessage(chatId, messageText, button);
 
-  // Confirm to admin
-  bot.sendMessage(chatId, `✅ Tutorial posted to the channel as a button.`);
+ bot.sendMessage(chatId, `✅ Tutorial posted to the channel as a button.`);
 });
